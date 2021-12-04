@@ -1,4 +1,5 @@
 let library = [];
+let container = document.querySelector('.container');
 
 function Book(title, author, pages, read) {
 	this.title = title;
@@ -14,12 +15,35 @@ Book.prototype.info = function() {
 	);
 };
 
+function addBook() {}
+
+function removeBook() {}
+
 const bible = new Book('The Bible', 'God', 1200, true);
 const fellowship = new Book('The fellowship of the Ring', 'JRR Tolkein', 423, false);
 const twoTowers = new Book('The Two Towers', 'JRR Tolkein', 352, false);
 const kingReturn = new Book('The Return of the King', 'JRR Tolkein', 345, false);
 const hobbit = new Book('The Hobbit', 'JRR Tolkein', 310, true);
 
+function renderLibrary(book, i) {
+	library.forEach((book) =>
+		container.insertAdjacentHTML(
+			'afterbegin',
+			`<div class='book' data-attr="${library.indexOf(book)}">
+	<h2>${book.title}</h2>
+	<div class="author"><h2>Author:</h2><p>${book.author}</p></div>
+	<div class="pages"><h2>Number of Pages:</h2><p>${book.pages}</p></div>
+	<div class="status"><h3>Read Status:</h3><p>${book.read === true ? 'I have read this book' : 'Not read yet'}</p></div>
+	<div class="div-btn"><button class="btn-change btn-read">${book.read === true
+		? 'Unread'
+		: 'Read'}</button><button class="btn-change btn-remove">Remove Book</button></div>
+</div>`
+		)
+	);
+}
+
 library.push(bible, fellowship, twoTowers, kingReturn, hobbit);
 console.log(library);
 console.log(library[2].title);
+
+renderLibrary();
