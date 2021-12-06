@@ -1,5 +1,11 @@
+/*//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////Variables and selectors////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+
 let library = [];
 let container = document.querySelector('.container');
+let books = document.querySelectorAll('.book');
+let readBtns = document.querySelectorAll('.btn-read');
+
+/*//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////Constructor and Proto//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
 
 function Book(title, author, pages, read) {
 	this.title = title;
@@ -15,44 +21,60 @@ Book.prototype.info = function() {
 	);
 };
 
+/*//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////Test Data /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+
+let bible = new Book('The Bible', 'God', 1200, true);
+let fellowship = new Book('The fellowship of the Ring', 'JRR Tolkein', 423, false);
+let twoTowers = new Book('The Two Towers', 'JRR Tolkein', 352, false);
+let kingReturn = new Book('The Return of the King', 'JRR Tolkein', 345, false);
+let hobbit = new Book('The Hobbit', 'JRR Tolkein', 310, true);
+
+/*//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////Functions//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+
+function init() {
+	renderLibrary();
+}
+function clear() {
+	container.innerHTML = '';
+}
 function addBook() {}
 
-function removeBook() {}
-
-const bible = new Book('The Bible', 'God', 1200, true);
-const fellowship = new Book('The fellowship of the Ring', 'JRR Tolkein', 423, false);
-const twoTowers = new Book('The Two Towers', 'JRR Tolkein', 352, false);
-const kingReturn = new Book('The Return of the King', 'JRR Tolkein', 345, false);
-const hobbit = new Book('The Hobbit', 'JRR Tolkein', 310, true);
+function removeBook(i) {
+	library.splice(i, 1);
+	clear();
+	renderLibrary();
+}
 
 function renderLibrary(book, i) {
 	library.forEach((book) =>
 		container.insertAdjacentHTML(
 			'afterbegin',
 			`<div class='book' data-attr="${library.indexOf(book)}">
-	<h2>${book.title}</h2>
-	<div class="author"><h2>Author:</h2><p>${book.author}</p></div>
-	<div class="pages"><h2>Number of Pages:</h2><p>${book.pages}</p></div>
-	<div class="status"><h3>Read Status:</h3><p>${book.read === true ? 'I have read this book' : 'Not read yet'}</p></div>
-	<div class="div-btn"><button class="btn-change btn-read">${book.read === true
-		? 'Unread'
-		: 'Read'}</button><button class="btn-change btn-remove">Remove Book</button></div>
-</div>`
+				<h2>${book.title}</h2>
+				<div class="author"><h2>Author:</h2><p>${book.author}</p></div>
+				<div class="pages"><h2>Number of Pages:</h2><p>${book.pages}</p></div>
+				<div class="status"><h3>Read Status:</h3><p>${book.read === true
+					? 'I have read this book'
+					: 'Not read yet'}</p></div>
+				<div class="div-btn"><button class="btn-change btn-read" data-attr="${library.indexOf(
+					book
+				)}" onclick="updateRead(${library.indexOf(book)})">${book.read === true
+				? 'Unread'
+				: 'Read'}</button><button class="btn-change btn-remove" data-attr="${library.indexOf(
+				book
+			)}" onclick="removeBook(${library.indexOf(book)})">Remove Book</button></div>
+							</div>`
 		)
 	);
 }
 
 library.push(bible, fellowship, twoTowers, kingReturn, hobbit);
-console.log(library);
-console.log(library[2].title);
 
-renderLibrary();
+function updateRead(i) {
+	let varBook = library[i];
+	varBook.read ? (varBook.read = false) : (varBook.read = true);
+	clear();
+	renderLibrary();
+}
 
-let books = document.querySelectorAll('.book');
-
-books.forEach((book) => {
-	book.addEventListener('click', (e) => {
-		e.preventDefault();
-		console.log(book);
-	});
-});
+init();
