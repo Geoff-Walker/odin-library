@@ -47,3 +47,12 @@ console.log(library);
 console.log(library[2].title);
 
 renderLibrary();
+
+let books = document.querySelectorAll('.book');
+
+books.forEach((book) => {
+	book.addEventListener('click', (e) => {
+		e.preventDefault();
+		console.log(book);
+	});
+});
