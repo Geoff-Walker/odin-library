@@ -4,15 +4,14 @@ This is a solution to the [The Odin Project Library App Project](https://www.the
 
 ## Table of contents
 
-- [Overview](#overview)
-  - [Links](#links)
-  - [Built with](#built-with)
-  - [What I learned](#what-i-learned)
-  - [Continued development](#continued-development)
-  - [Author](#author)
+ - [Overview](#overview)
+ - [Links](#links)
+ - [Built with](#built-with)
+ - [What I learned](#what-i-learned)
+ - [Continued development](#continued-development)
+ - [Author](#author)
 
 
-**Note: Delete this note and update the table of contents based on what sections you keep.**
 
 ## Overview
 Personally I am a fan of working through new features using lectures and tutorials the only problem with this is it can leave you short of the experience needed to undertake completetly different work.  For this reason I am a massive fan of The Odin Project its unsupported you find it out style of challenges really help cement those techniques first learned in tutorials.
