@@ -3,7 +3,9 @@
 let library = [];
 let container = document.querySelector('.container');
 let books = document.querySelectorAll('.book');
+let form = document.querySelector('.addbookform');
 let readBtns = document.querySelectorAll('.btn-read');
+const addBtn = document.querySelector('.btn-add');
 
 /*//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////Constructor and Proto//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
 
@@ -23,11 +25,13 @@ Book.prototype.info = function() {
 
 /*//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////Test Data /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
 
-let bible = new Book('The Bible', 'God', 1200, true);
-let fellowship = new Book('The fellowship of the Ring', 'JRR Tolkein', 423, false);
-let twoTowers = new Book('The Two Towers', 'JRR Tolkein', 352, false);
-let kingReturn = new Book('The Return of the King', 'JRR Tolkein', 345, false);
-let hobbit = new Book('The Hobbit', 'JRR Tolkein', 310, true);
+// let bible = new Book('The Bible', 'God', 1200, true);
+// let fellowship = new Book('The fellowship of the Ring', 'JRR Tolkein', 423, false);
+// let twoTowers = new Book('The Two Towers', 'JRR Tolkein', 352, false);
+// let kingReturn = new Book('The Return of the King', 'JRR Tolkein', 345, false);
+// let hobbit = new Book('The Hobbit', 'JRR Tolkein', 310, true);
+
+// library.push(bible, fellowship, twoTowers, kingReturn, hobbit);
 
 /*//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////Functions//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
 
@@ -37,7 +41,24 @@ function init() {
 function clear() {
 	container.innerHTML = '';
 }
-function addBook() {}
+function addBook() {
+	let books = document.querySelectorAll('.book');
+	let form = document.querySelector('.addbookform');
+	const title = document.getElementById('title').value;
+	const author = document.getElementById('author').value;
+	const pages = document.getElementById('pages').value;
+	const read = document.getElementById('read').checked;
+	let newBook = new Book(title, author, pages, read);
+	library.push(newBook);
+
+	addBtn.classList.remove('hidden');
+	books.forEach((book) => {
+		book.classList.remove('hidden');
+	});
+	form.classList.add('hidden');
+	clear();
+	renderLibrary();
+}
 
 function removeBook(i) {
 	library.splice(i, 1);
@@ -45,7 +66,7 @@ function removeBook(i) {
 	renderLibrary();
 }
 
-function renderLibrary(book, i) {
+function renderLibrary() {
 	library.forEach((book) =>
 		container.insertAdjacentHTML(
 			'afterbegin',
@@ -68,8 +89,6 @@ function renderLibrary(book, i) {
 	);
 }
 
-library.push(bible, fellowship, twoTowers, kingReturn, hobbit);
-
 function updateRead(i) {
 	let varBook = library[i];
 	varBook.read ? (varBook.read = false) : (varBook.read = true);
@@ -77,4 +96,25 @@ function updateRead(i) {
 	renderLibrary();
 }
 
+function displayForm() {
+	document.getElementById('title').value = '';
+	document.getElementById('author').value = '';
+	document.getElementById('pages').value = '';
+	document.getElementById('read').checked = '';
+
+	let books = document.querySelectorAll('.book');
+	let form = document.querySelector('.addbookform');
+
+	addBtn.classList.add('hidden');
+	books.forEach((book) => {
+		book.classList.add('hidden');
+	});
+	form.classList.remove('hidden');
+}
+/*//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////Form Submit Event//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+
+document.getElementById('submit-Btn').addEventListener('click', function(event) {
+	event.preventDefault();
+	addBook();
+});
 init();
