@@ -1,4 +1,4 @@
-# The Odin Project - Library Aplications
+# The Odin Project - Library Aplication
 
 This is a solution to the [The Odin Project Library App Project](https://www.theodinproject.com/paths/full-stack-javascript/courses/javascript/lessons/library). In an effort to become an all-round competant developer I am completing four courses.  The FreeCodeCamp course, Jonas Schmedtmann tutorials, Front End Mentor challenges and the course this belongs to The Odin Project.   I personally use the Odin Project to develop my functionality while for expediency leaving some visual design on the table.  I personally like to use the Frontend Mentor challenges to build those complete customer ready applications. 
 
